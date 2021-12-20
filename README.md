@@ -2,9 +2,14 @@
 
 A Flutter plugin for mollie payments
 
+## New changes.
+- Added null safety support.
+- Upgraded to work with latest flutter version.
+
+
 ## NEWS
 
-With version 0.8.0 the Mollie plugin supports client requests directly from your app.
+With version 1.1.0 the Mollie plugin supports client requests directly from your app.
 This feature is currently in beta.
 
 Currently supported APIs:

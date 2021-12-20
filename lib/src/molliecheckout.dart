@@ -3,9 +3,9 @@ import 'package:mollie/mollie.dart';
 import 'package:mollie/src/mollieorder.dart';
 
 class CheckoutStyle {
-  Color buttonColor;
-  TextStyle textStyle;
-  AppBar appBar;
+  Color? buttonColor;
+  TextStyle? textStyle;
+  AppBar? appBar;
 
   CheckoutStyle({this.textStyle, this.buttonColor, this.appBar});
 }
@@ -17,14 +17,14 @@ class MollieCheckout extends StatefulWidget {
   final bool usePaypal;
   final bool useIdeal;
   final bool useApplePay;
-  final CheckoutStyle style;
+  final CheckoutStyle? style;
   final MollieOrderRequest order;
   final Function(MollieOrderRequest) onMethodSelected;
 
   MollieCheckout(
-      {@required this.order,
+      {required this.order,
       this.style,
-      this.onMethodSelected,
+      required this.onMethodSelected,
       this.useCredit = true,
       this.usePaypal = true,
       this.useSepa = false,
@@ -37,8 +37,8 @@ class MollieCheckout extends StatefulWidget {
 }
 
 class _MollieCheckoutState extends State<MollieCheckout> {
-  List<Widget> paymentMethods = new List();
-  CheckoutStyle style;
+  List<Widget> paymentMethods = [];
+  CheckoutStyle? style;
 
   void _setMethod(String method) {
     widget.order.method = method;
@@ -100,30 +100,36 @@ class _MollieCheckoutState extends State<MollieCheckout> {
       dynamic m = paymentCodes[i];
 
       if (m["enable"] == true) {
-        paymentMethods.add(Container(
+        paymentMethods.add(
+          Container(
             padding: const EdgeInsets.all(5),
-            child: FlatButton(
-                color: style.buttonColor,
-                onPressed: () {
-                  _setMethod(m["method"]);
-                },
-                child: Row(
-                  children: <Widget>[
-                    Image.asset(
-                      m["icon"],
-                      package: "mollie",
-                      width: 40,
-                      height: 40,
-                    ),
-                    Expanded(
-                        child: Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              m["name"],
-                              style: style.textStyle,
-                            ))),
-                  ],
-                ))));
+            child: TextButton(
+              onPressed: () {
+                _setMethod(m["method"]);
+              },
+              style: TextButton.styleFrom(
+                backgroundColor: style?.buttonColor,
+              ),
+              child: Row(
+                children: <Widget>[
+                  Image.asset(
+                    m["icon"],
+                    package: "mollie",
+                    width: 40,
+                    height: 40,
+                  ),
+                  Expanded(
+                      child: Container(
+                          alignment: Alignment.center,
+                          child: Text(
+                            m["name"],
+                            style: style?.textStyle,
+                          ))),
+                ],
+              ),
+            ),
+          ),
+        );
       }
     }
   }
@@ -137,7 +143,7 @@ class _MollieCheckoutState extends State<MollieCheckout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: style.appBar,
+        appBar: style?.appBar,
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[

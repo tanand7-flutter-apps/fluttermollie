@@ -5,19 +5,19 @@ import 'dart:convert';
 
 class MollieOrderRequest {
   MollieAmount amount;
-  MollieAddress shippingAddress;
-  MollieAddress billingAddress;
+  MollieAddress? shippingAddress;
+  MollieAddress? billingAddress;
   dynamic metaData;
-  String consumerDateOfBirth;
-  String locale;
-  String redirectUrl;
-  String webhookUrl;
+  String? consumerDateOfBirth;
+  String? locale;
+  String? redirectUrl;
+  String? webhookUrl;
   List<MollieProductRequest> products;
-  String method;
-  String orderNumber;
+  String? method;
+  String? orderNumber;
 
   MollieOrderRequest(
-      {this.amount,
+      {required this.amount,
       this.billingAddress,
       this.shippingAddress,
       this.metaData,
@@ -25,7 +25,7 @@ class MollieOrderRequest {
       this.locale,
       this.webhookUrl,
       this.redirectUrl,
-      this.products,
+      this.products = const [],
       this.method,
       this.orderNumber});
 
@@ -39,8 +39,8 @@ class MollieOrderRequest {
 
     return json.encode({
       "amount": amount.toMap(),
-      "billingAddress": billingAddress.toMap(),
-      "shippingAddress": shippingAddress.toMap(),
+      "billingAddress": billingAddress?.toMap(),
+      "shippingAddress": shippingAddress?.toMap(),
       //"metaData": metaData,
       "consumerDateOfBirth": consumerDateOfBirth,
       "locale": locale,
@@ -54,23 +54,23 @@ class MollieOrderRequest {
 }
 
 class MollieOrderResponse {
-  String id;
-  MollieAmount amount;
-  MollieAddress shippingAddress;
-  MollieAddress billingAddress;
+  String? id;
+  MollieAmount? amount;
+  MollieAddress? shippingAddress;
+  MollieAddress? billingAddress;
   dynamic metaData;
-  String consumerDateOfBirth;
-  String locale;
-  String redirectUrl;
-  String webhookUrl;
-  String checkoutUrl;
-  List<MollieProductResponse> products = new List();
-  String status;
-  String method;
-  String orderNumber;
-  String createdAt;
-  String expiresAt;
-  String mode;
+  String? consumerDateOfBirth;
+  String? locale;
+  String? redirectUrl;
+  String? webhookUrl;
+  String? checkoutUrl;
+  List<MollieProductResponse> products = [];
+  String? status;
+  String? method;
+  String? orderNumber;
+  String? createdAt;
+  String? expiresAt;
+  String? mode;
 
   MollieOrderResponse.build(dynamic data) {
     id = data["id"];

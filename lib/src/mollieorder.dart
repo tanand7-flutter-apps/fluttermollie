@@ -4,7 +4,7 @@ import 'package:mollie/src/mollieproduct.dart';
 import 'dart:convert';
 
 class MollieOrderRequest {
-  MollieAmount amount;
+  MollieAmount? amount;
   MollieAddress? shippingAddress;
   MollieAddress? billingAddress;
   dynamic metaData;
@@ -17,7 +17,7 @@ class MollieOrderRequest {
   String? orderNumber;
 
   MollieOrderRequest(
-      {required this.amount,
+      {this.amount,
       this.billingAddress,
       this.shippingAddress,
       this.metaData,
@@ -38,7 +38,7 @@ class MollieOrderRequest {
     }
 
     return json.encode({
-      "amount": amount.toMap(),
+      "amount": amount?.toMap(),
       "billingAddress": billingAddress?.toMap(),
       "shippingAddress": shippingAddress?.toMap(),
       //"metaData": metaData,
